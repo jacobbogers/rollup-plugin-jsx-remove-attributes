@@ -1,0 +1,50 @@
+{
+  "include": ["src/**/*.ts"],
+  "files": ["src/index.ts"],
+  "typeAcquisition": {
+    "enable": true,
+    "disableFilenameBasedTypeAcquisition": true
+  },
+  "compilerOptions": {
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitThis": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "allowUmdGlobalAccess": false,
+    "baseUrl": "./src",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "declaration": true,
+    "outDir": "dist",
+    "preserveConstEnums": true,
+    "stripInternal": true,
+    "checkJs": true,
+    "plugins": [
+      {
+        "name": "typescript-eslint-language-service"
+      }
+    ],
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "preserveSymlinks": true,
+    "lib": ["esnext", "dom"],
+    "target": "esnext",
+    "explainFiles": false,
+    "extendedDiagnostics": true,
+    "listEmittedFiles": true,
+    "listFiles": true,
+    "traceResolution": false,
+    "composite": false,
+    "incremental": false
+  }
+}
