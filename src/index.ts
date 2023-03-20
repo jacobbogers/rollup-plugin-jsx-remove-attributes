@@ -3,15 +3,16 @@ import type { Plugin } from 'vite';
 import type { FilterPattern } from '@rollup/pluginutils';
 import { generate } from 'escodegen';
 import { walk } from 'estree-walker';
+import type { Node, ObjectExpression, Property, SimpleCallExpression, Identifier } from 'estree';
 
 export interface Options {
     attributes: string[];
     include?: FilterPattern;
     exclude?: FilterPattern;
-    usage: 'vite'|'rollup'
+    usage: 'vite' | 'rollup';
 }
 
-type PropertyLiteralValue = {
+interface PropertyLiteralValue extends Property {
     type: 'Property';
     key: {
         type: 'Literal';
@@ -21,24 +22,16 @@ type PropertyLiteralValue = {
         type: 'Literal';
         value: string;
     };
-};
+}
 
-type ObjectExpression = {
-    type: 'ObjectExpression';
-    properties: PropertyLiteralValue[];
-};
-
-type CallExpression = {
+interface JSXCallExpression extends SimpleCallExpression {
     type: 'CallExpression';
-    callee: {
-        type: string;
-        name: string;
-    };
+    callee: Identifier;
     arguments: ObjectExpression[];
-};
+}
 
-function isJSXCallExpression(jsx: unknown): jsx is CallExpression {
-    const ce = jsx as CallExpression;
+function isJSXCallExpression(jsx: unknown): jsx is JSXCallExpression {
+    const ce = jsx as JSXCallExpression;
     return ce?.type === 'CallExpression' && ce?.callee?.type === 'Identifier' && ce?.callee?.name === 'jsx';
 }
 
@@ -59,23 +52,23 @@ export default function VitePluginJSXRemoveAttributes({
     usage = 'rollup'
 }: Options): Plugin {
     const filterValidFile = createFilter(include, exclude);
-    const obj: Plugin =  {
+    const obj: Plugin = {
         name: 'vite-plugin-jsx-remove-attributes',
         transform(code: string, id: string) {
             if (!(filterValidFile(id) && process.env.NODE_ENV === 'production')) {
                 return null;
             }
-            const ast = this.parse(code, {
+            const ast: Node = this.parse(code, {
                 ecmaVersion: 'latest',
                 sourceType: 'module',
                 ranges: true,
                 locations: false
-            });
+            }) as Node;
             walk(ast, {
                 enter(node) {
                     if (isJSXCallExpression(node)) {
                         node.arguments.filter(isObjectExpression).forEach((obj) => {
-                           obj.properties =  obj.properties.filter((prop) => {
+                            obj.properties = obj.properties.filter((prop) => {
                                 if (isPropertyLiteralValue(prop)) {
                                     if (attributes.includes(prop.key.value)) {
                                         return false;
@@ -91,8 +84,8 @@ export default function VitePluginJSXRemoveAttributes({
             return { code: formattedCode, map: null };
         }
     };
-    if (usage === 'vite'){
-      obj.apply = 'build';
+    if (usage === 'vite') {
+        obj.apply = 'build';
     }
     return obj;
 }

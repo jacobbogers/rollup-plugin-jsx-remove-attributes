@@ -1,64 +1,64 @@
 {
-  "name": "rollup-plugin-jsx-remove-attributes",
-  "version": "1.0.0",
-  "description": "rollup &amp; vite plugin to remove jsx attributes",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes.git"
-  },
-  "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md",
-    "package.json",
-    "LICENSE.txt"
-  ],
-  "type": "module",
-  "contributes": {
-    "typescriptServerPlugins": [
-      {
-        "name": "typescript-eslint-language-service"
-      }
-    ]
-  },
-  "scripts": {
-    "prebuild": "npm run lint",
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "lint": "eslint .eslintrc.cjs  src/**/*.ts",
-    "lint:fix": "npm run lint -- --fix"
-  },
-  "keywords": [
-    "vite-plugin",
-    "rollup-plogin",
-    "remove data-testid"
-  ],
-  "author": "jacob bogers <jkfbogers@gmail.com>",
-  "license": "SEE LICENSE IN LICENSE.txt",
-  "engines": {
-    "node": ">=v18.15.0"
-  },
-  "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@babel/eslint-parser": "7.21.3",
-    "@babel/eslint-plugin": "7.19.1",
-    "@types/acorn": "6.0.0",
-    "@types/escodegen": "0.0.7",
-    "@types/node": "18.15.3",
-    "@typescript-eslint/eslint-plugin": "5.55.0",
-    "eslint": "8.36.0",
-    "typescript": "5.0.2",
-    "typescript-eslint-language-service": "5.0.0"
-  },
-  "peerDependencies": {
-    "@rollup/pluginutils": "5.0 - 6",
-    "escodegen": "",
-    "vite": "4.0 - 5",
-    "estree-walker": "3.x - 4"
-  }
+    "name": "rollup-plugin-jsx-remove-attributes",
+    "version": "1.0.1",
+    "description": "rollup &amp; vite plugin to remove jsx attributes",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "bugs": {
+        "url": "https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes.git"
+    },
+    "sideEffects": false,
+    "files": [
+        "dist",
+        "README.md",
+        "package.json",
+        "LICENSE.txt"
+    ],
+    "type": "module",
+    "contributes": {
+        "typescriptServerPlugins": [
+            {
+                "name": "typescript-eslint-language-service"
+            }
+        ]
+    },
+    "scripts": {
+        "prebuild": "npm run lint",
+        "build": "tsc",
+        "prepublishOnly": "npm run build",
+        "lint": "eslint .eslintrc.cjs  src/**/*.ts",
+        "lint:fix": "npm run lint -- --fix"
+    },
+    "keywords": [
+        "vite-plugin",
+        "rollup-plogin",
+        "remove data-testid"
+    ],
+    "author": "jacob bogers <jkfbogers@gmail.com>",
+    "license": "SEE LICENSE IN LICENSE.txt",
+    "engines": {
+        "node": ">=v18.15.0"
+    },
+    "devDependencies": {
+        "@babel/core": "7.21.3",
+        "@babel/eslint-parser": "7.21.3",
+        "@babel/eslint-plugin": "7.19.1",
+        "@types/acorn": "6.0.0",
+        "@types/escodegen": "0.0.7",
+        "@types/node": "18.15.3",
+        "@typescript-eslint/eslint-plugin": "5.55.0",
+        "eslint": "8.36.0",
+        "typescript": "5.0.2",
+        "typescript-eslint-language-service": "5.0.0"
+    },
+    "peerDependencies": {
+        "@rollup/pluginutils": "5.0 - 6",
+        "escodegen": "",
+        "vite": "4.0 - 5",
+        "estree-walker": "3.x - 4"
+    }
 }

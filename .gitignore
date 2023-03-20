@@ -3,7 +3,6 @@ dist/
 TODO
 npm-debug.log*
 *.pem
-.*
 !/.gitignore
 !/.eslintignore
 !/.npmrc
