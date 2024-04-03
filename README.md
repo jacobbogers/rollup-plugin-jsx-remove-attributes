@@ -25,7 +25,7 @@ Example:
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-import removeTestIdAttribute from 'rollup-jsx-remove-attributes';
+import removeTestIdAttribute from 'rollup-plugin-jsx-remove-attributes';
 
 export default defineConfig({
     build: { sourcemap: true },
@@ -49,7 +49,7 @@ Example:
 
 ```typescript
 import { rollup } from 'rollup';
-import removeTestIdAttribute from 'rollup-jsx-remove-attributes';
+import removeTestIdAttribute from 'rollup-plugin-jsx-remove-attributes';
 
 // see below for details on these options
 const inputOptions = {
