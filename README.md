@@ -34,7 +34,7 @@ export default defineConfig({
         removeTestIdAttribute({ 
              include: [/\.[tj]sx$/], //default
              exclude: ['**/node_modules/**'], // default
-             attributes: ['data-testid']  // remove test attributes from jsx
+             attributes: ['data-testid'],  // remove test attributes from jsx
              usage: 'vite'  // Must specify 'vite'
         }),
         // other plugins
@@ -58,7 +58,7 @@ const inputOptions = {
       removeTestIdAttribute({ 
              include: [/\.[tj]sx$/], //default
              exclude: ['**/node_modules/**'], // default
-             attributes: ['data-testid']  // remove test attributes from jsx
+             attributes: ['data-testid'],  // remove test attributes from jsx
              usage: 'rollup'  // must specify rollup
         }),
     ]
