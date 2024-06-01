@@ -28,11 +28,6 @@
         "preserveConstEnums": true,
         "stripInternal": true,
         "checkJs": true,
-        "plugins": [
-            {
-                "name": "typescript-eslint-language-service"
-            }
-        ],
         "allowSyntheticDefaultImports": false,
         "esModuleInterop": false,
         "forceConsistentCasingInFileNames": true,
