@@ -54,11 +54,7 @@ function isObjectExpression(obj: unknown): obj is ObjectExpression {
 
 function isPropertyLiteralValue(prop: unknown): prop is PropertyLiteralValue {
 	const piv = prop as PropertyLiteralValue;
-	return (
-		piv?.type === "Property" &&
-		piv?.key?.type === "Literal" &&
-		piv?.value?.type === "Literal"
-	);
+	return piv?.type === "Property" && piv?.key?.type === "Literal";
 }
 
 export default function VitePluginJSXRemoveAttributes({
@@ -119,7 +115,7 @@ export default function VitePluginJSXRemoveAttributes({
 	}
 	const obj: Plugin = {
 		name: "vite-plugin-jsx-remove-attributes",
-		version: "2.0.1",
+		version: "2.0.3",
 		transform(code: string, id: string) {
 			if (!filterValidFile(id)) {
 				return null;

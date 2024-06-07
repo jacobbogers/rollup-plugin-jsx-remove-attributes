@@ -1,6 +1,6 @@
 {
     "name": "rollup-plugin-jsx-remove-attributes",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "rollup &amp; vite plugin to remove jsx attributes",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -42,13 +42,12 @@
         "@types/escodegen": "0.0.7",
         "@types/node": "18.15.3",
         "@types/rollup": "0.54.0",
-        "@typescript-eslint/eslint-plugin": "5.55.0",
         "typescript": "5.0.2"
     },
     "peerDependencies": {
         "@rollup/pluginutils": "5.1 - 5.2",
         "escodegen": "2.1 - 2.2",
         "estree-walker": "3.x - 4",
-        "vite": "4.0 - 4.5"
+        "vite": "5.2 - 6"
     }
 }
