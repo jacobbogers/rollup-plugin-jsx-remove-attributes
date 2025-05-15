@@ -1,6 +1,6 @@
 import { createFilter } from "@rollup/pluginutils";
 import type { FilterPattern } from "@rollup/pluginutils";
-import { generate } from "escodegen";
+import { generate } from "astring";
 import type {
 	Identifier,
 	Node,
