@@ -11,13 +11,21 @@ import type {
 import { walk } from "estree-walker";
 import type { Plugin } from "vite";
 
+
+export type ILogger = {
+	error: typeof console.error,
+	warn: typeof console.warn,
+	debug: typeof console.debug,
+	info: typeof console.info,
+};
 export interface Options {
-	attributes: string[];
+	attributes?: string[];
 	include?: FilterPattern;
 	exclude?: FilterPattern;
 	usage?: "vite" | "rollup";
 	environments?: string[];
 	debug?: boolean;
+	logger?: ILogger
 }
 
 interface PropertyLiteralValue extends Property {
@@ -57,6 +65,15 @@ function isPropertyLiteralValue(prop: unknown): prop is PropertyLiteralValue {
 	return piv?.type === "Property" && piv?.key?.type === "Literal";
 }
 
+function normalizeAttributes(attributes?: string[]): string[] {
+	if (Array.isArray(attributes) && attributes.length > 0) {
+		return attributes;
+	}
+	return ["data-testid"];
+}
+
+export type RemoveAttrbutePlugin = typeof VitePluginJSXRemoveAttributes;
+
 export default function VitePluginJSXRemoveAttributes({
 	include = [/\.[tj]sx$/],
 	exclude = ["**/node_modules/**"],
@@ -64,24 +81,26 @@ export default function VitePluginJSXRemoveAttributes({
 	usage = "rollup",
 	environments = ["production"],
 	debug = false,
-}: Options): Plugin | false {
+	logger = console,
+}: Options = {}): Plugin | false {
+	const finalAttributes = normalizeAttributes(attributes);
 	const filterValidFile = createFilter(include, exclude);
 	const plName = "vite-plugin-jsx-remove-attributes";
-	const node_env_lowercase = process.env.NODE_ENV?.toLowerCase() || "";
+	const node_env_lowercase = (process.env.NODE_ENV ?? "").toLowerCase();
 	if (!node_env_lowercase) {
-		console.warn(
+		logger.warn(
 			`[${plName}] NODE_ENV was not set on in this process, this plugin will not run`,
 		);
 		return false;
 	}
 	if (!Array.isArray(environments)) {
-		console.error(
+		logger.error(
 			`[${plName}] "environments" plugin option is not an array`,
 		);
 		return false;
 	}
 	if (environments.length === 0) {
-		console.error(
+		logger.error(
 			`[${plName}] "environments" plugin option is an array of zero length`,
 		);
 		return false;
@@ -90,7 +109,7 @@ export default function VitePluginJSXRemoveAttributes({
 		environments.filter((e) => typeof e === "string").length !==
 		environments.length
 	) {
-		console.error(
+		logger.error(
 			`[${plName}] "environments" plugin options must contain strings`,
 		);
 		return false;
@@ -99,7 +118,7 @@ export default function VitePluginJSXRemoveAttributes({
 		environments.filter((e) => e.trim() !== "").length !==
 		environments.length
 	) {
-		console.error(
+		logger.error(
 			`[${plName}] "environments" plugin options must contain non zero length strings`,
 		);
 		return false;
@@ -107,41 +126,72 @@ export default function VitePluginJSXRemoveAttributes({
 	if (!environments.includes(node_env_lowercase)) {
 		if (debug) {
 			const envs = environments.map((e) => `"${e}"`).join(",");
-			console.info(
-				`[${plName}] The current environemnt: "${node_env_lowercase}", the plugin is configured to run in: ${envs}`,
+			logger.info(
+				`[${plName}] The current environment: "${node_env_lowercase}", the plugin is configured to run in: ${envs}`,
 			);
 		}
 		return false;
 	}
 	const obj: Plugin = {
 		name: "vite-plugin-jsx-remove-attributes",
-		version: "2.0.3",
-		transform(code: string, id: string) {
+		version: "3.0.0",
+		transform(code, id) {
 			if (!filterValidFile(id)) {
+				/*
+				const rewritePath = relative(resolve(), id);
+				const fullPath = resolve("rejected", rewritePath);
+				mkdirSync(dirname(fullPath), { recursive: true });
+				writeFileSync(fullPath, code);
+				*/
 				return null;
 			}
+			// let dirty = false;
 			const ast: Node = this.parse(code, {
 				allowReturnOutsideFunction: false,
 			}) as Node;
 			walk(ast, {
 				enter(node) {
-					if (isJSXCallExpression(node)) {
-						for (const obj of node.arguments.filter(
-							isObjectExpression,
-						)) {
-							obj.properties = obj.properties.filter((prop) => {
-								if (isPropertyLiteralValue(prop)) {
-									if (attributes.includes(prop.key.value)) {
-										return false;
-									}
-								}
-								return true;
-							});
-						}
+					if (!isJSXCallExpression(node)) {
+						/*
+						const rewritePath = relative(resolve(), id);
+						const fullPath = resolve("no-candidate", rewritePath);
+						mkdirSync(dirname(fullPath), { recursive: true });
+						writeFileSync(fullPath, code);
+						*/
+						return;
 					}
+					for (const obj of node.arguments.filter(
+						isObjectExpression,
+					)) {
+						obj.properties = obj.properties.filter((prop) => {
+							if (isPropertyLiteralValue(prop)) {
+								if (finalAttributes.includes(prop.key.value)) {
+									// dirty = true;
+									return false;
+								}
+							}
+							return true;
+						});
+					}
+					/*
+					const rewritePath = relative(resolve(), id);
+					if (dirty) {
+						const fullPath = resolve("adjusted", rewritePath);
+						mkdirSync(dirname(fullPath), { recursive: true });
+						writeFileSync(fullPath, code);
+					} else {
+						const fullPath = resolve("un-touched", rewritePath);
+						mkdirSync(dirname(fullPath), { recursive: true });
+						writeFileSync(fullPath, code);
+					}
+						*/
 				},
 			});
 			const formattedCode = generate(ast);
+			/*const rewritePath = relative(resolve(), id);
+			const fullPath = resolve("final", rewritePath);
+			mkdirSync(dirname(fullPath), { recursive: true });
+			writeFileSync(fullPath, code);*/
 			return { code: formattedCode, map: null };
 		},
 	};
