@@ -9,7 +9,6 @@ import type { ProgramNode } from "rollup";
 import CalculatorBtnProgramNode from "./fixtures/CalculatorBtnProgramNode";
 import CalculatorBtnSource from "./fixtures/CalculatorBtnSource";
 import CalculatorBtnStrippedSource from "./fixtures/CalculatorBtnStripped";
-import fileNotInSelectionList from "./fixtures/file-not-in-selection-list";
 
 function createScaffold(props: Partial<Options> = {}) {
 	const logs = [];
