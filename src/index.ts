@@ -11,12 +11,11 @@ import type {
 import { walk } from "estree-walker";
 import type { Plugin } from "vite";
 
-
 export type ILogger = {
-	error: typeof console.error,
-	warn: typeof console.warn,
-	debug: typeof console.debug,
-	info: typeof console.info,
+	error: typeof console.error;
+	warn: typeof console.warn;
+	debug: typeof console.debug;
+	info: typeof console.info;
 };
 export interface Options {
 	attributes?: string[];
@@ -25,7 +24,7 @@ export interface Options {
 	usage?: "vite" | "rollup";
 	environments?: string[];
 	debug?: boolean;
-	logger?: ILogger
+	logger?: ILogger;
 }
 
 interface PropertyLiteralValue extends Property {
@@ -137,12 +136,6 @@ export default function VitePluginJSXRemoveAttributes({
 		version: "3.0.0",
 		transform(code, id) {
 			if (!filterValidFile(id)) {
-				/*
-				const rewritePath = relative(resolve(), id);
-				const fullPath = resolve("rejected", rewritePath);
-				mkdirSync(dirname(fullPath), { recursive: true });
-				writeFileSync(fullPath, code);
-				*/
 				return null;
 			}
 			// let dirty = false;
@@ -152,12 +145,6 @@ export default function VitePluginJSXRemoveAttributes({
 			walk(ast, {
 				enter(node) {
 					if (!isJSXCallExpression(node)) {
-						/*
-						const rewritePath = relative(resolve(), id);
-						const fullPath = resolve("no-candidate", rewritePath);
-						mkdirSync(dirname(fullPath), { recursive: true });
-						writeFileSync(fullPath, code);
-						*/
 						return;
 					}
 					for (const obj of node.arguments.filter(
@@ -166,32 +153,15 @@ export default function VitePluginJSXRemoveAttributes({
 						obj.properties = obj.properties.filter((prop) => {
 							if (isPropertyLiteralValue(prop)) {
 								if (finalAttributes.includes(prop.key.value)) {
-									// dirty = true;
 									return false;
 								}
 							}
 							return true;
 						});
 					}
-					/*
-					const rewritePath = relative(resolve(), id);
-					if (dirty) {
-						const fullPath = resolve("adjusted", rewritePath);
-						mkdirSync(dirname(fullPath), { recursive: true });
-						writeFileSync(fullPath, code);
-					} else {
-						const fullPath = resolve("un-touched", rewritePath);
-						mkdirSync(dirname(fullPath), { recursive: true });
-						writeFileSync(fullPath, code);
-					}
-						*/
 				},
 			});
 			const formattedCode = generate(ast);
-			/*const rewritePath = relative(resolve(), id);
-			const fullPath = resolve("final", rewritePath);
-			mkdirSync(dirname(fullPath), { recursive: true });
-			writeFileSync(fullPath, code);*/
 			return { code: formattedCode, map: null };
 		},
 	};
