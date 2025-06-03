@@ -34,9 +34,9 @@ export default defineConfig({
         removeTestIdAttribute({
             include: [/\.[tj]sx$/], //default
             exclude: ['**/node_modules/**'], // default
-            attributes: ['data-testid'], // remove test attributes from jsx
+            attributes: ['data-testid'], // default, array of attribute names to strip from jsx
             environments: ['production', 'pre-prod', 'prod', 'q&a'], // default = ["production"]
-            debug: true, // show more logging of the internal workings of this plugin, for troubleshooting configs, default false
+            debug: false, // is the default, if "true" show more logging of the internal workings of this plugin, for troubleshooting configs
             usage: 'vite' // Must specify for vite use, default usage is rollup
         })
         // other plugins
@@ -59,10 +59,10 @@ const inputOptions = {
       removeTestIdAttribute({
             include: [/\.[tj]sx$/], //default
             exclude: ['**/node_modules/**'], // default
-            attributes: ['data-testid'],  // remove test attributes from jsx
+            attributes: ['data-testid'],  // default, array of attribute names to strip from jsx
             environments: ['production', 'pre-prod', 'prod', 'q&a'], // default = ["production"]
-            debug: true, // show more logging of the internal workings of this plugin, for troubleshooting configs, default false
-            usage: 'rollup'  // when configuring for rollup "usage" can be omitted, shown for clarity only
+            debug: false, // is the default, if "true" show more logging of the internal workings of this plugin, for troubleshooting configs
+            usage: 'rollup'  // default,  when configuring for rollup "usage" can be omitted, shown for clarity only
         }),
     ]
 };
@@ -76,9 +76,9 @@ await rollup.write(outputOptions);
 
 ## Options Object
 
--   `usage`: possible values are `vite` or `rollup`, default behavior is for rollup.
--   `include`: will allow anything that matches the array of glob/regexp pattern, default`[/\.[tj]sx$/]`
--   `exclude`: will exclude anything matching the array of glob/regexp patterns, default `['**/node_modules/**']`
--   `attributes`: array of jsx attributes to be stripped if found, example `data-testid`
+-   `usage`: default `rollup`, possible values are `vite` or `rollup`,
+-   `include`: default`[/\.[tj]sx$/]`, will allow anything that matches the array of glob/regexp pattern, default`[/\.[tj]sx$/]`
+-   `exclude`: default `['**/node_modules/**']`, will exclude anything matching the array of glob/regexp patterns
+-   `attributes`: (optional default = [`data-testid`] ) array of jsx attributes to be stripped if found
 -   `environments`: array of strings representing values of NODE_ENV for wich this plugin will run.
--   `debug`: show more logging of internal workings of the plugin, default false
+-   `debug`: default `false`, show more logging of internal workings of the plugin, default false
