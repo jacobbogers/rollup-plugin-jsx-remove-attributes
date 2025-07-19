@@ -1,3 +1,4 @@
+
 # rollup(& vite)-plugin-jsx-remove-attributes
 
 rollup &amp; vite plugin to remove jsx attributes
@@ -10,14 +11,28 @@ It can be generally used to remove any number of attributes.
 
 The plugin only runs when `NODE_ENV` matches the values of the `environments` option (default is `['production']`).
 
-## Installation
+## Table of contents
+<!-- vscode-markdown-toc -->
+1. [Installation](#Installation)
+2. [Usage with Vite](#UsagewithVite)
+3. [Usage with Rollup](#UsagewithRollup)
+4. [Options Object](#OptionsObject)
+5. [Usage with Preact](#UsagewithPreact)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='Installation'></a>Installation
 
 ```bash
 
 npm i -D rollup-plugin-jsx-remove-attributes
 ```
 
-## Usage with Vite
+##  2. <a name='UsagewithVite'></a>Usage with Vite
 
 Example:
 
@@ -44,7 +59,7 @@ export default defineConfig({
 });
 ```
 
-## Usage with Rollup
+##  3. <a name='UsagewithRollup'></a>Usage with Rollup
 
 Example:
 
@@ -74,7 +89,7 @@ const bundle = await rollup.build(inputOptions);
 await rollup.write(outputOptions);
 ```
 
-## Options Object
+##  4. <a name='OptionsObject'></a>Options Object
 
 -   `usage`: default `rollup`, possible values are `vite` or `rollup`,
 -   `include`: default`[/\.[tj]sx$/]`, will allow anything that matches the array of glob/regexp pattern, default`[/\.[tj]sx$/]`
@@ -82,3 +97,35 @@ await rollup.write(outputOptions);
 -   `attributes`: (optional default = [`data-testid`] ) array of jsx attributes to be stripped if found
 -   `environments`: array of strings representing values of NODE_ENV for wich this plugin will run.
 -   `debug`: default `false`, show more logging of internal workings of the plugin, default false
+
+
+##  5. <a name='UsagewithPreact'></a>Usage with Preact
+
+Preact is now supported since version 3.1.0
+
+Please take care the insert this plugin before any minification/uglify plugin.
+
+For example:
+
+```javascript
+// imports removed for brevity
+//
+// https://vitejs.dev/config/
+export default defineConfig({
+    plugins: [
+        esbuild(),
+        jsxRemoveAttributes(), // <-- this plugin
+        minify()
+    ],
+    //
+    // other config info removed for brevity
+});
+```
+
+For more information see [issue][7]
+
+[7]: https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/issues/7
+
+
+
+

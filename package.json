@@ -1,6 +1,6 @@
 {
     "name": "rollup-plugin-jsx-remove-attributes",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "rollup &amp; vite plugin to remove jsx attributes",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

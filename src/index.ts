@@ -50,7 +50,7 @@ function isJSXCallExpression(jsx: unknown): jsx is JSXCallExpression {
 	return (
 		ce?.type === "CallExpression" &&
 		ce?.callee?.type === "Identifier" &&
-		ce?.callee?.name === "jsx"
+		["jsx", "jsxs"].includes(ce?.callee?.name)
 	);
 }
 

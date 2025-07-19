@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## version 3.1.0 - 2025-07-16
+
+### changed
+-- added support for "preact" jsx/tsx files, due to [issue](https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/issues/7) 
+
+
 ## version 3.0.0 - 2025-06-03
 
 ### changed
