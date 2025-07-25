@@ -643,6 +643,57 @@ export default {
 																							},
 																							{
 																								type: "CallExpression",
+																								start: 830,
+																								end: 860,
+																								optional: false,
+																								_rollupAnnotations: [
+																									{
+																										end: 829,
+																										start: 815,
+																										type: "pure",
+																									},
+																								],
+																								callee: {
+																									type: "Identifier",
+																									start: 830,
+																									end: 844,
+																									name: "__spreadValues",
+																								},
+																								arguments: [
+																									{
+																										type: "ObjectExpression",
+																										start: 845,
+																										end: 859,
+																										properties: [
+																											{
+																												type: "Property",
+																												start: 846,
+																												end: 858,
+																												method: false,
+																												shorthand: false,
+																												computed: false,
+																												key: {
+																													type: "Literal",
+																													start: 846,
+																													end: 857,
+																													value: "data-testid",
+																													raw: '"data-testid"',
+																												},
+																												value: {
+																													type: "Literal",
+																													start: 858,
+																													end: 864,
+																													value: "test",
+																													raw: '"test"',
+																												},
+																												kind: "init",
+																											},
+																										],
+																									},
+																								],
+																							},
+																							{
+																								type: "CallExpression",
 																								start: 861,
 																								end: 1140,
 																								optional: false,
