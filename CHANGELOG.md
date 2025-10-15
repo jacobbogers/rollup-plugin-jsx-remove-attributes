@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## version 3.1.2 - 2025-10-14
+
+### changed
+-- [PR][pull-10]: Support automatic runtime injections by @babel/plugin-transform-react-jsx Joona Ojapalo <joona.ojapalo@asteroid.fi>
+
 ## version 3.1.1 - 2025-07-25
 
 ### fixed
@@ -95,3 +100,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### added
 
 -   initial check in (Jacob Bogers <jkfbogers@gmail.com>)
+
+
+[pull-10]: https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/pull/10

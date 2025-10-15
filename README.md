@@ -18,6 +18,7 @@ The plugin only runs when `NODE_ENV` matches the values of the `environments` op
 3. [Usage with Rollup](#UsagewithRollup)
 4. [Options Object](#OptionsObject)
 5. [Usage with Preact](#UsagewithPreact)
+6. [Usage with Babel](#UsagewithBabel)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -124,6 +125,12 @@ export default defineConfig({
 
 For more information see [issue][7]
 
+
+##  6. <a name='UsagewithBabel'></a>Usage with Babel
+
+Since version 3.1.2 supporting runtime injections of @babel/plugin-transform-react-jsx. ([this PR][pr-10]).
+
+[pr-10]: https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/pull/10
 [7]: https://github.com/jacobbogers/rollup-plugin-jsx-remove-attributes/issues/7
 
 
